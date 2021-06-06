@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="banco_cadastro" uuid="88861e6b-c8e4-42cd-8e70-5c45ac35aed7">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Administrator\Desktop\Projeto - Banco Virtual\PROJETOS EXISTENTES\Tela-de-login-Python-master\tela_login\banco_cadastro.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
