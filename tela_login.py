@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
 import sys
 import sqlite3
+import random
+import string
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -109,26 +111,41 @@ def call_tela_main():
     senha = tela_login.lineEdit.text()
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
-    try:
-      cursor.execute("SELECT senha FROM cadastro WHERE login = '{}'".format(nome_usuario))
-      senha_bd = cursor.fetchall()
-      print(senha_bd[0][0])
-      banco.close()
-    except:
-       print("Erro ao validar o Login")
 
-    if senha == senha_bd[0][0] :
-
-      tela_login.msg_label.setText("Dados de login CORRETOS!")
-    if senha != senha_bd[0][0] :
-      tela_login.msg_label.setText("Dados de login incorretos!")
+def login():
+    nome_usuario = tela_login.lineEdit_2.text()
+    senha = tela_login.lineEdit.text()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor=banco.cursor()
+    cursor.execute("SELECT * FROM cadastro where login=? AND senha=?", (nome_usuario, senha))
+    row=cursor.fetchone()
+    if row:
+        tela_login.msg_label.setText("Dados de login corretos!")
+        tela_main.show()
+        tela_login.close()
+    else:
+        tela_login.msg_label.setText("Dados de login incorretos!")
 
 def logout():
 
     tela_login.show()
 
+chavepix = "abc123"
+def gerar_chavepix(size=20, chars=string.ascii_uppercase + string.digits):
+ return ''.join(random.choice(chars) for _ in range(size))
+
+def gerar_pix():
+    chavepix = gerar_chavepix()
+    tela_gerarpix.chavepix_label.setText(chavepix)
+
 def call_tela_cadastro():
     tela_cadastro.show()
+
+def call_tela_pix():
+    tela_gerarpix.show()
+
+def call_tela_gerarpix():
+    tela_pix.show()
 
 def cadastrar():
     nome = tela_cadastro.cadastro_usuario.text()
@@ -140,26 +157,33 @@ def cadastrar():
         try:
             banco = sqlite3.connect('banco_stonks.db')
             cursor = banco.cursor()
-            cursor.execute("CREATE TABLE IF NOT EXISTS cadastro (nome text,login text,senha text)")
-            cursor.execute("INSERT INTO cadastro VALUES ('"+nome+"','"+login+"','"+senha+"')")
+            cursor.execute("CREATE TABLE IF NOT EXISTS cadastro (nome text,login text,senha text, id_usuario int PRIMARY KEY autoincrement)")
+            cursor.execute("INSERT INTO cadastro VALUES ('"+nome+"','"+login+"','"+senha+"', NULL, NULL)")
+            cursor.execute("CREATE TABLE IF NOT EXISTS carteira (chave_pix string,saldo INTEGER,id text, id_carteira int PRIMARY KEY autoincrement)")
+            chavepix = gerar_pix()
+            cursor.execute("INSERT INTO carteira VALUES ('" + chavepix + "','" + login + "','" + senha + "')")
             banco.commit()
             banco.close()
             tela_cadastro.msg_label2.setText("Usuario cadastrado com sucesso")
 
         except sqlite3.Error as erro:
             print("Erro ao inserir os dados: ",erro)
+
     else:
         tela_cadastro.label.setText("As senhas digitadas estão diferentes")
-
-
 
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
+    tela_gerarpix = uic.loadUi("gerarpix.ui")
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
+    tela_main = uic.loadUi("tela_main.ui")
+    tela_pix = uic.loadUi("pix.ui")
     tela_login.cadastrarButton.clicked.connect(call_tela_cadastro)
     tela_cadastro.cadastrarButton.clicked.connect(cadastrar)
-    tela_login.loginButton.clicked.connect(call_tela_main)
+    tela_login.loginButton.clicked.connect(login)
+    tela_main.pixButton.clicked.connect(call_tela_pix)
+    tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
     Form = QtWidgets.QWidget()
     ui = Ui_Dialog()
     ui.setupUi(Form)
