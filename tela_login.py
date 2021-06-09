@@ -4,6 +4,7 @@ import sqlite3
 import random
 import string
 
+global id_carteira
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -112,6 +113,15 @@ def call_tela_main():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
 
+def catch_id():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    nome_usuario = tela_login.lineEdit_2.text()
+    cursor.execute("SELECT id_carteira FROM cadastro WHERE login=?", (nome_usuario,))
+    id_carteira = str(cursor.fetchone()[0])
+    print(id_carteira)
+    return id_carteira
+
 def login():
     nome_usuario = tela_login.lineEdit_2.text()
     senha = tela_login.lineEdit.text()
@@ -121,6 +131,7 @@ def login():
     row=cursor.fetchone()
     if row:
         tela_login.msg_label.setText("Dados de login corretos!")
+        catch_id()
         tela_main.show()
         tela_login.close()
     else:
@@ -135,8 +146,11 @@ def gerar_chavepix(size=20, chars=string.ascii_uppercase + string.digits):
  return ''.join(random.choice(chars) for _ in range(size))
 
 def gerar_pix():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
     chavepix = gerar_chavepix()
     tela_gerarpix.chavepix_label.setText(chavepix)
+
 
 def call_tela_cadastro():
     tela_cadastro.show()
