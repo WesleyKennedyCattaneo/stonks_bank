@@ -145,12 +145,25 @@ chavepix = "abc123"
 def gerar_chavepix(size=20, chars=string.ascii_uppercase + string.digits):
  return ''.join(random.choice(chars) for _ in range(size))
 
-def gerar_pix():
+def gerar_pix1():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
     chavepix = gerar_chavepix()
     tela_gerarpix.chavepix_label.setText(chavepix)
+    update_pix()
 
+def gerar_pix():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    chavepix1 = '345345'
+    variavel = 1250
+    print(chavepix1)
+    query = """UPDATE carteira SET chave_pix = ? WHERE id_carteira = ?"""
+    #print(id_carteira)
+    data = (chavepix1, variavel)
+    cursor.execute(query, data)
+    print(chavepix1)
+    banco.commit()
 
 def call_tela_cadastro():
     tela_cadastro.show()

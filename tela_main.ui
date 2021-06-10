@@ -145,7 +145,7 @@ background-color:rgba(2, 65, 118, 255);
       <rect>
        <x>100</x>
        <y>20</y>
-       <width>181</width>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
@@ -161,7 +161,7 @@ background-color:rgba(2, 65, 118, 255);
       <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string>Olá, Fabricio</string>
+      <string>Olá, </string>
      </property>
     </widget>
     <widget class="QPushButton" name="transferirButton">
@@ -410,6 +410,30 @@ background-color:rgba(2, 65, 118, 255);
      </property>
      <property name="text">
       <string>Fatura:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="name_label">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>20</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
