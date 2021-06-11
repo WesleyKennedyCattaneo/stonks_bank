@@ -5,6 +5,9 @@ import random
 import string
 
 global id_carteira
+global nome_usuario
+
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -105,6 +108,10 @@ class Ui_Dialog(object):
         self.loginButton.setText(_translate("Dialog", "Login"))
         self.label.setText(_translate("Dialog", ""))
         self.cadastrarButton.setText(_translate("Dialog", "Cadastrar"))
+def conectar_banco():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    return cursor
 
 def call_tela_main():
     tela_login.msg_label.setText("")
@@ -119,14 +126,31 @@ def catch_id():
     nome_usuario = tela_login.lineEdit_2.text()
     cursor.execute("SELECT id_carteira FROM cadastro WHERE login=?", (nome_usuario,))
     id_carteira = str(cursor.fetchone()[0])
-    print(id_carteira)
+    #print(id_carteira)
     return id_carteira
+
+def catch_idUsuario():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    nome_usuario = tela_login.lineEdit_2.text()
+    cursor.execute("SELECT id_usuario FROM cadastro WHERE login=?", (nome_usuario,))
+    usuario = str(cursor.fetchone()[0])
+    #print(id_carteira)
+    return usuario
+
+def catch_senha():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    nome_usuario = tela_login.lineEdit_2.text()
+    cursor.execute("SELECT senha FROM cadastro WHERE login=?", (nome_usuario,))
+    id_senha = str(cursor.fetchone()[0])
+    return id_senha
 
 def login():
     nome_usuario = tela_login.lineEdit_2.text()
     senha = tela_login.lineEdit.text()
     banco = sqlite3.connect('banco_stonks.db')
-    cursor=banco.cursor()
+    cursor = banco.cursor()
     cursor.execute("SELECT * FROM cadastro where login=? AND senha=?", (nome_usuario, senha))
     row=cursor.fetchone()
     if row:
@@ -155,13 +179,14 @@ def gerar_pix1():
 def gerar_pix():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
-    chavepix1 = '345345'
+    chavepix1 = gerar_chavepix()
+    id_carteira1 = catch_id()
     variavel = 1250
     print(chavepix1)
     query = """UPDATE carteira SET chave_pix = ? WHERE id_carteira = ?"""
-    #print(id_carteira)
-    data = (chavepix1, variavel)
+    data = (chavepix1, id_carteira1)
     cursor.execute(query, data)
+    tela_gerarpix.chavepix_label.setText(chavepix1)
     print(chavepix1)
     banco.commit()
 
@@ -203,18 +228,45 @@ def cadastrar():
     else:
         tela_cadastro.label.setText("As senhas digitadas estão diferentes")
 
+def call_tela_apagarconta():
+    tela_deletar.show()
+
+def call_tela_perfil():
+    tela_perfil.show()
+
+def call_tela_deletar():
+    tela_deletar.show()
+
+def deletar_conta():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    usuario = catch_idUsuario()
+    print(usuario)
+    cursor.execute("delete from cadastro where id_usuario = ?", usuario)
+    banco.commit()
+    tela_main.close()
+    tela_deletar.close()
+    tela_perfil.close()
+    tela_login.show()
+
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
+    tela_deletar = uic.loadUi("tela_deletar.ui")
     tela_gerarpix = uic.loadUi("gerarpix.ui")
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
     tela_main = uic.loadUi("tela_main.ui")
+    tela_perfil = uic.loadUi("tela_perfil.ui")
     tela_pix = uic.loadUi("pix.ui")
     tela_login.cadastrarButton.clicked.connect(call_tela_cadastro)
     tela_cadastro.cadastrarButton.clicked.connect(cadastrar)
     tela_login.loginButton.clicked.connect(login)
+    tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
+    tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.pixButton.clicked.connect(call_tela_pix)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
+    tela_perfil.apagarconta_botao.clicked.connect(call_tela_deletar)
+    tela_deletar.apagarconta_botao2.clicked.connect(deletar_conta)
     Form = QtWidgets.QWidget()
     ui = Ui_Dialog()
     ui.setupUi(Form)
