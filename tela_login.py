@@ -134,7 +134,7 @@ def catch_idUsuario():
     cursor = banco.cursor()
     nome_usuario = tela_login.lineEdit_2.text()
     cursor.execute("SELECT id_usuario FROM cadastro WHERE login=?", (nome_usuario,))
-    usuario = int(cursor.fetchone()[0])
+    usuario = str(cursor.fetchone()[0])
     #print(id_carteira)
     return usuario
 
@@ -242,8 +242,8 @@ def deletar_conta():
     usuario = catch_idUsuario()
     data1 = str(10)
     print(usuario)
-    query = """DELETE from cadastro WHERE id_usuario= ?"""
-    cursor.execute(query, data1)
+    cursor.execute('DELETE FROM cadastro WHERE id_usuario = ' + usuario)
+    cursor.execute('DELETE FROM cadastro WHERE id_usuario = ' + usuario)
     banco.commit()
     tela_login.show()
     tela_main.close()
