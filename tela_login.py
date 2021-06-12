@@ -134,7 +134,7 @@ def catch_idUsuario():
     cursor = banco.cursor()
     nome_usuario = tela_login.lineEdit_2.text()
     cursor.execute("SELECT id_usuario FROM cadastro WHERE login=?", (nome_usuario,))
-    usuario = str(cursor.fetchone()[0])
+    usuario = int(cursor.fetchone()[0])
     #print(id_carteira)
     return usuario
 
@@ -181,7 +181,6 @@ def gerar_pix():
     cursor = banco.cursor()
     chavepix1 = gerar_chavepix()
     id_carteira1 = catch_id()
-    variavel = 1250
     print(chavepix1)
     query = """UPDATE carteira SET chave_pix = ? WHERE id_carteira = ?"""
     data = (chavepix1, id_carteira1)
@@ -241,13 +240,16 @@ def deletar_conta():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
     usuario = catch_idUsuario()
+    data1 = str(10)
     print(usuario)
-    cursor.execute("delete from cadastro where id_usuario = ?", usuario)
+    query = """DELETE from cadastro WHERE id_usuario= ?"""
+    cursor.execute(query, data1)
     banco.commit()
+    tela_login.show()
     tela_main.close()
     tela_deletar.close()
     tela_perfil.close()
-    tela_login.show()
+
 
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
