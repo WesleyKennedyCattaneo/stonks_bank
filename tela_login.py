@@ -189,6 +189,24 @@ def gerar_pix():
     print(chavepix1)
     banco.commit()
 
+def call_telanovasenha():
+    tela_novasenha.show()
+
+def alterar_senha():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    senha_nova =  tela_novasenha.lineEdit2.text()
+    usuario2 = catch_idUsuario()
+    query = """UPDATE cadastro SET senha = ? WHERE id_usuario = ?"""
+    data = (senha_nova, usuario2)
+    cursor.execute(query, data)
+    banco.commit()
+    tela_login.show()
+    tela_main.close()
+    tela_deletar.close()
+    tela_perfil.close()
+    print('deucerto')
+
 def call_tela_cadastro():
     tela_cadastro.show()
 
@@ -240,16 +258,16 @@ def deletar_conta():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
     usuario = catch_idUsuario()
+    id_carteira2 = catch_id()
     data1 = str(10)
     print(usuario)
     cursor.execute('DELETE FROM cadastro WHERE id_usuario = ' + usuario)
-    cursor.execute('DELETE FROM cadastro WHERE id_usuario = ' + usuario)
+    cursor.execute('DELETE FROM carteira WHERE id_carteira = ' + id_carteira2)
     banco.commit()
     tela_login.show()
     tela_main.close()
     tela_deletar.close()
     tela_perfil.close()
-
 
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
@@ -260,6 +278,7 @@ if __name__=="__main__":
     tela_main = uic.loadUi("tela_main.ui")
     tela_perfil = uic.loadUi("tela_perfil.ui")
     tela_pix = uic.loadUi("pix.ui")
+    tela_novasenha = uic.loadUi("tela_novasenha.ui")
     tela_login.cadastrarButton.clicked.connect(call_tela_cadastro)
     tela_cadastro.cadastrarButton.clicked.connect(cadastrar)
     tela_login.loginButton.clicked.connect(login)
@@ -269,9 +288,12 @@ if __name__=="__main__":
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
     tela_perfil.apagarconta_botao.clicked.connect(call_tela_deletar)
     tela_deletar.apagarconta_botao2.clicked.connect(deletar_conta)
+    tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
+    tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
     Form = QtWidgets.QWidget()
     ui = Ui_Dialog()
     ui.setupUi(Form)
     tela_login.show()
     app.exec()
+
 
