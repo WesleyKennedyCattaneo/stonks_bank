@@ -269,6 +269,7 @@ def deletar_conta():
     tela_deletar.close()
     tela_perfil.close()
 
+
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
