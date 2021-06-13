@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>534</height>
+    <width>684</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,46 +100,6 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="pagarButton">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>190</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#pagarButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#pagarButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#pagarButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Pagar</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
@@ -168,7 +128,7 @@ background-color:rgba(2, 65, 118, 255);
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>260</y>
+       <y>190</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -204,91 +164,11 @@ background-color:rgba(2, 65, 118, 255);
       <string>Transferir</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="recargaButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>120</y>
-       <width>181</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#recargaButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#recargaButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#recargaButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Recarregar Celular</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="cobrarButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>190</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#cobrarButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#cobrarButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#cobrarButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Cobrar</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="perfilButton">
      <property name="geometry">
       <rect>
        <x>280</x>
-       <y>260</y>
+       <y>190</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -388,30 +268,6 @@ background-color:rgba(2, 65, 118, 255);
       <string>Saldo Atual:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="faturaLabel">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>80</y>
-       <width>181</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: 0</string>
-     </property>
-     <property name="text">
-      <string>Fatura:</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="name_label">
      <property name="geometry">
       <rect>
@@ -436,6 +292,49 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
+    <widget class="QPushButton" name="emprestimoButton">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>120</y>
+       <width>141</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton#voltarButton{
+background-color:rgba(2, 65, 118, 255);
+color:rgba(255, 255, 255, 200);
+border-radius:5px;
+}
+
+QPushButton#voltarButton:pressed{
+padding-left:5px;
+padding-top:5px;
+background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
+}
+
+QPushButton#voltarButton{
+background-color:rgba(2, 65, 118, 255);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Empréstimo</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -443,7 +342,7 @@ background-color:rgba(2, 65, 118, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>684</width>
      <height>21</height>
     </rect>
    </property>
