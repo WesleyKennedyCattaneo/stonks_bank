@@ -141,7 +141,7 @@ background-color:rgba(2, 65, 118, 255);
       <string>Alterar Senha</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="voltar_botao">
+    <widget class="QPushButton" name="sairButton">
      <property name="geometry">
       <rect>
        <x>190</x>
