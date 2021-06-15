@@ -17,8 +17,8 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>60</y>
+      <x>120</x>
+      <y>70</y>
       <width>531</width>
       <height>411</height>
      </rect>
@@ -104,51 +104,11 @@ background-color:rgba(2, 65, 118, 255);
       <string>Minhas Chaves</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pixlimiteButton">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>160</y>
-       <width>181</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#cobrarButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#cobrarButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#cobrarButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Meu limite PIX</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pixpagarButton">
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>230</y>
+       <y>170</y>
        <width>181</width>
        <height>51</height>
       </rect>

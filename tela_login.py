@@ -113,6 +113,18 @@ def conectar_banco():
     cursor = banco.cursor()
     return cursor
 
+def fechar_cadastro():
+    tela_cadastro.close()
+
+def fechar_pix():
+    tela_gerarpix.close()
+
+def fechar_perfil():
+    tela_perfil.close()
+
+def call_tela_emprestimo():
+    tela_emprestimo.show()
+
 def call_tela_main():
     tela_login.msg_label.setText("")
     nome_usuario = tela_login.lineEdit_2.text()
@@ -238,6 +250,7 @@ def cadastrar():
             banco.commit()
             banco.close()
             tela_cadastro.msg_label2.setText("Usuario cadastrado com sucesso")
+            tela_cadastro.close()
 
         except sqlite3.Error as erro:
             print("Erro ao inserir os dados: ",erro)
@@ -273,6 +286,7 @@ def deletar_conta():
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
+    tela_emprestimo = uic.loadUi("tela_emprestimo.ui")
     tela_deletar = uic.loadUi("tela_deletar.ui")
     tela_gerarpix = uic.loadUi("gerarpix.ui")
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
@@ -281,13 +295,17 @@ if __name__=="__main__":
     tela_pix = uic.loadUi("pix.ui")
     tela_novasenha = uic.loadUi("tela_novasenha.ui")
     tela_login.cadastrarButton.clicked.connect(call_tela_cadastro)
+    tela_cadastro.voltarButton.clicked.connect(fechar_cadastro)
     tela_cadastro.cadastrarButton.clicked.connect(cadastrar)
     tela_login.loginButton.clicked.connect(login)
     tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.pixButton.clicked.connect(call_tela_pix)
+    tela_main.emprestimoButton.clicked.connect(call_tela_emprestimo)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
+    tela_gerarpix.voltarButton.clicked.connect(fechar_pix)
     tela_perfil.apagarconta_botao.clicked.connect(call_tela_deletar)
+    tela_perfil.voltarButton.clicked.connect(fechar_perfil)
     tela_deletar.apagarconta_botao2.clicked.connect(deletar_conta)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
