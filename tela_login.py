@@ -3,10 +3,8 @@ import sys
 import sqlite3
 import random
 import string
-
 global id_carteira
 global nome_usuario
-
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -118,6 +116,15 @@ def fechar_cadastro():
 
 def fechar_pix():
     tela_gerarpix.close()
+
+def apagar_pix():
+    conectar_banco()
+    usuario = catch_idUsuario()
+    id_carteira2 = catch_id()
+    data1 = str(10)
+    print(usuario)
+    cursor.execute('DELETE chave_pix FROM carteira WHERE id_usuario = ' + usuario)
+    banco.commit()
 
 def fechar_perfil():
     tela_perfil.close()
@@ -282,7 +289,6 @@ def deletar_conta():
     tela_deletar.close()
     tela_perfil.close()
 
-
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
@@ -301,12 +307,13 @@ if __name__=="__main__":
     tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.pixButton.clicked.connect(call_tela_pix)
-    tela_main.emprestimoButton.clicked.connect(call_tela_emprestimo)
+    tela_perfil.deletarpix_botao.clicked.connect(apagar_pix)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
     tela_gerarpix.voltarButton.clicked.connect(fechar_pix)
     tela_perfil.apagarconta_botao.clicked.connect(call_tela_deletar)
     tela_perfil.voltarButton.clicked.connect(fechar_perfil)
     tela_deletar.apagarconta_botao2.clicked.connect(deletar_conta)
+    tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
     Form = QtWidgets.QWidget()
