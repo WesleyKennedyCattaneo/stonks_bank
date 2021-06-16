@@ -328,11 +328,14 @@ def alterar_senha():
     data = (senha_nova, usuario2)
     cursor.execute(query, data)
     banco.commit()
+    logoff()
+
+
+def logoff():
     tela_login.show()
     tela_main.close()
     tela_deletar.close()
     tela_perfil.close()
-    print('deucerto')
 
 def call_tela_cadastro():
     tela_cadastro.show()
@@ -494,6 +497,7 @@ if __name__=="__main__":
     tela_login.loginButton.clicked.connect(login)
     tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
     tela_main.emprestimoButton.clicked.connect(call_tela_emprestimo)
+    tela_main.sairButton.clicked.connect(logoff)
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.transferirButton.clicked.connect(call_tela_transferir)
     tela_main.pixButton.clicked.connect(call_tela_pix)
