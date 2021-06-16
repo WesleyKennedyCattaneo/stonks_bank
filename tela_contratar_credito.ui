@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>453</height>
+    <width>510</width>
+    <height>264</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,35 +19,14 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>531</width>
-      <height>411</height>
+      <width>511</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(29, 92, 132);
 border-radius:20px;</string>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>151</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>60</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: 0</string>
-     </property>
-     <property name="text">
-      <string></string>
-     </property>
-    </widget>
     <widget class="QLabel" name="msg_label">
      <property name="geometry">
       <rect>
@@ -61,11 +40,11 @@ border-radius:20px;</string>
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="voltarButton">
+    <widget class="QPushButton" name="okButton">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>310</y>
+       <x>290</x>
+       <y>140</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -80,57 +59,81 @@ border-radius:20px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">
-QPushButton#voltarButton{
+QPushButton#okButton{
 background-color:rgba(2, 65, 118, 255);
 color:rgba(255, 255, 255, 200);
 border-radius:5px;
 }
 
-QPushButton#voltarButton:pressed{
+QPushButton#okButton:pressed{
 padding-left:5px;
 padding-top:5px;
 background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
 }
 
-QPushButton#voltarButton{
+QPushButton#okButton{
 background-color:rgba(2, 65, 118, 255);
 }
 </string>
      </property>
      <property name="text">
-      <string>Voltar</string>
+      <string>OK</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSaldo_2">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>130</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="faturaLabel_2">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>160</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="labelSaldo">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>50</y>
-       <width>181</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: 0</string>
-     </property>
-     <property name="text">
-      <string>Crédito disponível:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="name_label">
-     <property name="geometry">
-      <rect>
        <x>140</x>
-       <y>20</y>
-       <width>111</width>
+       <y>80</y>
+       <width>61</width>
        <height>21</height>
       </rect>
      </property>
@@ -146,38 +149,37 @@ background-color:rgba(2, 65, 118, 255);
       <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string/>
+      <string>Valor:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelMostraSaldo">
+    <widget class="QLineEdit" name="vlr_solicitar">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>50</y>
-       <width>181</width>
-       <height>21</height>
+       <x>210</x>
+       <y>80</y>
+       <width>141</width>
+       <height>20</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
      <property name="styleSheet">
-      <string notr="true">background-color: 0</string>
+      <string notr="true">background-color: rgb(62, 62, 62);
+border: 1px solid rgba(0, 0, 0, 0);
+border-bottom-color:rgba(46, 82, 101, 255);
+color:rgb(255, 155, 255);
+padding-bottom:7px</string>
      </property>
-     <property name="text">
-      <string/>
+     <property name="echoMode">
+      <enum>QLineEdit::Normal</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Digite o valor desejado</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="maisCreditoButton">
+    <widget class="QPushButton" name="cancelarButton">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>120</y>
+       <x>90</x>
+       <y>140</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -192,34 +194,34 @@ background-color:rgba(2, 65, 118, 255);
      </property>
      <property name="styleSheet">
       <string notr="true">
-QPushButton#maisCreditoButton{
+QPushButton#cancelarButton{
 background-color:rgba(2, 65, 118, 255);
 color:rgba(255, 255, 255, 200);
 border-radius:5px;
 }
 
-QPushButton#maisCreditoButton:pressed{
+QPushButton#cancelarButton:pressed{
 padding-left:5px;
 padding-top:5px;
 background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
 }
 
-QPushButton#maisCreditoButton{
+QPushButton#cancelarButton{
 background-color:rgba(2, 65, 118, 255);
 }
 </string>
      </property>
      <property name="text">
-      <string>Ajustar Limite</string>
+      <string>Cancelar</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="contratarButton">
+    <widget class="QLabel" name="labelSaldo_3">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>200</y>
-       <width>171</width>
-       <height>51</height>
+       <x>70</x>
+       <y>20</y>
+       <width>391</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -231,26 +233,45 @@ background-color:rgba(2, 65, 118, 255);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-QPushButton#contratarButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#contratarButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#contratarButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
+      <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string>Contratar Crédito</string>
+      <string>Contratação de crédito pessoal</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="msg_erro">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>50</y>
+       <width>391</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="palette">
+      <palette>
+       <active/>
+       <inactive/>
+       <disabled/>
+      </palette>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+       <kerning>false</kerning>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -260,7 +281,7 @@ background-color:rgba(2, 65, 118, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>532</width>
+     <width>510</width>
      <height>21</height>
     </rect>
    </property>

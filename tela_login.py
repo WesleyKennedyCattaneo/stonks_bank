@@ -118,6 +118,9 @@ def conectar_banco():
 def fechar_cadastro():
     tela_cadastro.close()
 
+def fechar_tela_contratar_credito():
+    tela_contratar_credito.close()
+
 def fechar_pix():
     tela_gerarpix.close()
 
@@ -135,7 +138,31 @@ def apagar_pix():
 def fechar_perfil():
     tela_perfil.close()
 
+def fechar_emprestimo():
+    tela_emprestimo.close()
+
+def fechar_tela_mais_credito():
+    tela_mais_credito.close()
+
+def call_mais_credito():
+    tela_mais_credito.show()
+
+def call_contratar_credito():
+    tela_contratar_credito.show()
+
 def call_tela_emprestimo():
+    tela_emprestimo.show()
+
+
+def emprestimo():
+    usuario = catch_idUsuario()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    cursor.execute("SELECT id_credito_usuario FROM cadastro WHERE id_usuario=?", (usuario,))
+    id_credito_usuario = str(cursor.fetchone()[0])
+    cursor.execute("SELECT limite_atual FROM credito_usuario WHERE id_credito_usuario=?", (id_credito_usuario,))
+    limite_atual = str(cursor.fetchone()[0])
+    tela_emprestimo.labelMostraSaldo.setText("R$ " + limite_atual)
     tela_emprestimo.show()
 
 def call_tela_main():
@@ -144,6 +171,48 @@ def call_tela_main():
     senha = tela_login.lineEdit.text()
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
+
+def aumentar_limite():
+    usuario = catch_idUsuario()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    cursor.execute("SELECT id_credito_usuario FROM cadastro WHERE id_usuario=?", (usuario,))
+    id_credito_usuario = str(cursor.fetchone()[0])
+    vlr_aumento = tela_mais_credito.vlr_aumento.text()
+    query = """UPDATE credito_usuario SET limite_atual = ? WHERE id_credito_usuario = ?"""
+    data = (vlr_aumento, id_credito_usuario)
+    cursor.execute(query, data)
+    banco.commit()
+    tela_mais_credito.close()
+
+def contratar_credito():
+    usuario = catch_idUsuario()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    cursor.execute("SELECT id_credito_usuario FROM cadastro WHERE id_usuario=?", (usuario,))
+    id_credito_usuario = str(cursor.fetchone()[0])
+    vlr_solicitar = int(tela_contratar_credito.vlr_solicitar.text())
+    cursor.execute("SELECT limite_atual FROM credito_usuario WHERE id_credito_usuario=?", (id_credito_usuario,))
+    vlr_credito_disponivel = int(cursor.fetchone()[0])
+    cursor.execute("SELECT id_carteira FROM cadastro WHERE id_usuario=?", (usuario,))
+    id_carteira = str(cursor.fetchone()[0])
+    cursor.execute("SELECT saldo FROM carteira WHERE id_carteira=?", (id_carteira,))
+    saldo_disponivel = int(cursor.fetchone()[0])
+    if vlr_credito_disponivel >= vlr_solicitar:
+        vlr_subtracao = vlr_credito_disponivel - vlr_solicitar
+        query = """UPDATE credito_usuario SET limite_atual = ? WHERE id_credito_usuario = ?"""
+        data = (vlr_subtracao, id_credito_usuario)
+        cursor.execute(query, data)
+        banco.commit()
+        vlr_soma_saldo = saldo_disponivel + vlr_solicitar
+        query = """UPDATE carteira SET saldo = ? WHERE id_carteira = ?"""
+        data = (vlr_soma_saldo, id_carteira)
+        cursor.execute(query, data)
+        banco.commit()
+        tela_contratar_credito.close()
+    else:
+        tela_contratar_credito.msg_erro.setText('Valor solicitado indisponível, consulte seu limite atual.')
+    tela_mais_credito.close()
 
 def catch_id():
     banco = sqlite3.connect('banco_stonks.db')
@@ -280,6 +349,10 @@ def cadastrar():
         try:
             banco = sqlite3.connect('banco_stonks.db')
             cursor = banco.cursor()
+            cursor.execute("CREATE TABLE IF NOT EXISTS credito_usuario (limite_atual INTEGER, id_credito_usuario int PRIMARY KEY autoincrement)")
+            cursor.execute("INSERT INTO credito_usuario VALUES (NULL, 500)")
+            cursor.execute("SELECT id_credito_usuario FROM credito_usuario ORDER BY id_credito_usuario desc Limit 1;")
+            id_credito_usuario = str((cursor.fetchall())[0][0])
             cursor.execute("CREATE TABLE IF NOT EXISTS carteira (chave_pix string,saldo INTEGER,id text, id_carteira int PRIMARY KEY autoincrement)")
             chavepix = gerar_chavepix()
             #chavepix = str(chavepix)
@@ -287,8 +360,10 @@ def cadastrar():
             cursor.execute("CREATE TABLE IF NOT EXISTS cadastro (nome text,login text,senha text, id_usuario int PRIMARY KEY autoincrement)")
             cursor.execute("SELECT id_carteira FROM carteira ORDER BY id_carteira desc Limit 1;")
             id_carteira = str((cursor.fetchall())[0][0])
+            cursor.execute("SELECT id_credito_usuario FROM credito_usuario ORDER BY id_credito_usuario desc Limit 1;")
+            id_credito_usuario = str((cursor.fetchall())[0][0])
             print(id_carteira)
-            cursor.execute("INSERT INTO cadastro VALUES ('" + nome + "','" + login + "','" + senha + "', NULL, '" + id_carteira + "',null)")
+            cursor.execute("INSERT INTO cadastro VALUES ('" + nome + "','" + login + "','" + senha + "', NULL, '" + id_carteira + "', '" + id_credito_usuario + "')")
             banco.commit()
             banco.close()
             tela_cadastro.msg_label2.setText("Usuario cadastrado com sucesso")
@@ -401,11 +476,18 @@ if __name__=="__main__":
     tela_perfil = uic.loadUi("tela_perfil.ui")
     tela_pix = uic.loadUi("pix.ui")
     tela_novasenha = uic.loadUi("tela_novasenha.ui")
+    tela_mais_credito = uic.loadUi("tela_mais_credito.ui")
+    tela_contratar_credito = uic.loadUi("tela_contratar_credito.ui")
+    tela_contratar_credito.okButton.clicked.connect(contratar_credito)
+    tela_contratar_credito.cancelarButton.clicked.connect(fechar_tela_contratar_credito)
+    tela_mais_credito.okButton.clicked.connect(aumentar_limite)
+    tela_mais_credito.cancelarButton.clicked.connect(fechar_tela_mais_credito)
     tela_login.cadastrarButton.clicked.connect(call_tela_cadastro)
     tela_cadastro.voltarButton.clicked.connect(fechar_cadastro)
     tela_cadastro.cadastrarButton.clicked.connect(cadastrar)
     tela_login.loginButton.clicked.connect(login)
     tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
+    tela_main.emprestimoButton.clicked.connect(call_tela_emprestimo)
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.transferirButton.clicked.connect(call_tela_transferir)
     tela_main.pixButton.clicked.connect(call_tela_pix)
@@ -419,8 +501,10 @@ if __name__=="__main__":
     tela_perfil.extrato_botao.clicked.connect(saida_json)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
-    tela_transferir.transferir_botao.clicked.connect(transferir)
-    transferencia_ok.voltarButton.clicked.connect(transferencia_ok_close)
+    tela_emprestimo.voltarButton.clicked.connect(fechar_emprestimo)
+    tela_emprestimo.voltarButton.clicked.connect(fechar_emprestimo)
+    tela_emprestimo.maisCreditoButton.clicked.connect(call_mais_credito)
+    tela_emprestimo.contratarButton.clicked.connect(call_contratar_credito)
     Form = QtWidgets.QWidget()
     ui = Ui_Dialog()
     ui.setupUi(Form)

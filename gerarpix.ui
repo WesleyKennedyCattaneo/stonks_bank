@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,16 +162,6 @@ background-color:rgba(2, 65, 118, 255);
       <string>ChavePix</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>310</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
