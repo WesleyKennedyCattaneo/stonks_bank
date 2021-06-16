@@ -141,6 +141,9 @@ def fechar_perfil():
 def fechar_emprestimo():
     tela_emprestimo.close()
 
+def fechar_transferir():
+    tela_transferir.close()
+
 def fechar_tela_mais_credito():
     tela_mais_credito.close()
 
@@ -162,7 +165,8 @@ def emprestimo():
     id_credito_usuario = str(cursor.fetchone()[0])
     cursor.execute("SELECT limite_atual FROM credito_usuario WHERE id_credito_usuario=?", (id_credito_usuario,))
     limite_atual = str(cursor.fetchone()[0])
-    tela_emprestimo.labelMostraSaldo.setText("R$ " + limite_atual)
+    #tela_emprestimo.labelMostraSaldo.setText("R$ " + limite_atual)
+    tela_emprestimo.labelMostraSaldo.setText("R$ ")
     tela_emprestimo.show()
 
 def call_tela_main():
@@ -478,6 +482,8 @@ if __name__=="__main__":
     tela_novasenha = uic.loadUi("tela_novasenha.ui")
     tela_mais_credito = uic.loadUi("tela_mais_credito.ui")
     tela_contratar_credito = uic.loadUi("tela_contratar_credito.ui")
+    tela_transferir.voltarButton.clicked.connect(fechar_transferir)
+    tela_transferir.transferir_botao.clicked.connect(transferir)
     tela_contratar_credito.okButton.clicked.connect(contratar_credito)
     tela_contratar_credito.cancelarButton.clicked.connect(fechar_tela_contratar_credito)
     tela_mais_credito.okButton.clicked.connect(aumentar_limite)
@@ -501,7 +507,6 @@ if __name__=="__main__":
     tela_perfil.extrato_botao.clicked.connect(saida_json)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
-    tela_emprestimo.voltarButton.clicked.connect(fechar_emprestimo)
     tela_emprestimo.voltarButton.clicked.connect(fechar_emprestimo)
     tela_emprestimo.maisCreditoButton.clicked.connect(call_mais_credito)
     tela_emprestimo.contratarButton.clicked.connect(call_contratar_credito)
