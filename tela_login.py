@@ -1,3 +1,5 @@
+import collections
+
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
 import sys
 import sqlite3
@@ -5,6 +7,8 @@ import random
 import string
 global id_carteira
 global nome_usuario
+import json
+import psycopg2
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -118,12 +122,14 @@ def fechar_pix():
     tela_gerarpix.close()
 
 def apagar_pix():
-    conectar_banco()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
     usuario = catch_idUsuario()
     id_carteira2 = catch_id()
     data1 = str(10)
     print(usuario)
-    cursor.execute('DELETE chave_pix FROM carteira WHERE id_usuario = ' + usuario)
+    #cursor.execute('DELETE chave_pix FROM carteira WHERE id_usuario = ' + usuario)
+    cursor.execute("DELETE chave_pix FROM carteira WHERE id_carteira=(?)", (id_carteira2,))
     banco.commit()
 
 def fechar_perfil():
@@ -165,6 +171,32 @@ def catch_senha():
     id_senha = str(cursor.fetchone()[0])
     return id_senha
 
+def catch_saldo():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    idCarteira = catch_id()
+    cursor.execute("SELECT saldo FROM carteira WHERE id_carteira=?", (idCarteira,))
+    saldo = int(cursor.fetchone()[0])
+    #print(saldo)
+    return saldo
+
+def catch_saldo_destino():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    carteira_destino = tela_transferir.agencia_text.text()
+    cursor.execute("SELECT saldo FROM carteira WHERE id_carteira=?", (carteira_destino,))
+    saldo_destino = int(cursor.fetchone()[0])
+    #print(saldo_destino)
+    return saldo_destino
+
+def catch_nome():
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    nome_usuario = tela_login.lineEdit_2.text()
+    cursor.execute("SELECT senha FROM cadastro WHERE login=?", (nome_usuario,))
+    nome_usuario = str(cursor.fetchone()[0])
+    return nome_usuario
+
 def login():
     nome_usuario = tela_login.lineEdit_2.text()
     senha = tela_login.lineEdit.text()
@@ -198,14 +230,17 @@ def gerar_pix1():
 def gerar_pix():
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
-    chavepix1 = gerar_chavepix()
-    id_carteira1 = catch_id()
-    print(chavepix1)
+    chavepix2 = gerar_chavepix()
+    id_carteira2 = catch_id()
+    print(chavepix2)
+
+    tela_gerarpix.chavepix_label.setText(chavepix2)
+    #print(chavepix1)
     query = """UPDATE carteira SET chave_pix = ? WHERE id_carteira = ?"""
-    data = (chavepix1, id_carteira1)
+    data = (chavepix2, id_carteira2)
     cursor.execute(query, data)
-    tela_gerarpix.chavepix_label.setText(chavepix1)
-    print(chavepix1)
+    tela_gerarpix.chavepix_label.setText(chavepix2)
+    print(chavepix2)
     banco.commit()
 
 def call_telanovasenha():
@@ -253,7 +288,7 @@ def cadastrar():
             cursor.execute("SELECT id_carteira FROM carteira ORDER BY id_carteira desc Limit 1;")
             id_carteira = str((cursor.fetchall())[0][0])
             print(id_carteira)
-            cursor.execute("INSERT INTO cadastro VALUES ('" + nome + "','" + login + "','" + senha + "', NULL, '" + id_carteira + "')")
+            cursor.execute("INSERT INTO cadastro VALUES ('" + nome + "','" + login + "','" + senha + "', NULL, '" + id_carteira + "',null)")
             banco.commit()
             banco.close()
             tela_cadastro.msg_label2.setText("Usuario cadastrado com sucesso")
@@ -289,14 +324,80 @@ def deletar_conta():
     tela_deletar.close()
     tela_perfil.close()
 
+def saida_json( json_str = False ):
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    id_usuario = catch_id()
+    senha = catch_senha()
+    nome = catch_nome()
+    print(id_usuario,senha)
+    cursor.execute("SELECT * FROM carteira")
+    rows = cursor.fetchall()
+    cursor.execute("SELECT * FROM cadastro")
+    rows2 = cursor.fetchall()
+    user = [
+    {
+        "Usuario1": rows2[0],
+        "pix1": rows[0],
+        "saldo": rows[0]
+    },
+    {
+        "Usuario4": rows2[1],
+        "pix1": rows[1],
+        "sald2": rows[1]
+    },
+    {
+        "Usuario3": rows2[3],
+        "pix2": rows[3],
+        "saldo3": rows[3]
+    }
+]
+    data = json.dumps(user)
+    file = open('user.json', 'a')
+    file.write(data)
+    file.close()
+
+def call_tela_transferir():
+    tela_transferir.show()
+
+def transferir():
+
+    agencia_destino = tela_transferir.agencia_text.text()
+    valor_destino = tela_transferir.valor_text.text()
+    valor_destino = int(valor_destino)
+    meusaldo = catch_saldo()
+    meusaldo = meusaldo - valor_destino
+    print(meusaldo)
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    idcarteira = catch_id()
+    query = """UPDATE carteira SET saldo = ? WHERE id_carteira = ?"""
+    data = (meusaldo, idcarteira)
+    cursor.execute(query, data)
+    saldo_destino = catch_saldo_destino()
+    saldo_destino = saldo_destino + valor_destino
+    query2 = """UPDATE carteira SET saldo = ? WHERE id_carteira = ?"""
+    data2 = (saldo_destino, agencia_destino)
+    cursor.execute(query2, data2)
+    banco.commit()
+    call_ok_transferencia()
+
+def call_ok_transferencia():
+    transferencia_ok.show()
+
+def transferencia_ok_close():
+    transferencia_ok.close()
+
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
     tela_emprestimo = uic.loadUi("tela_emprestimo.ui")
+    transferencia_ok = uic.loadUi("transferencia_ok.ui")
     tela_deletar = uic.loadUi("tela_deletar.ui")
     tela_gerarpix = uic.loadUi("gerarpix.ui")
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
     tela_main = uic.loadUi("tela_main.ui")
+    tela_transferir = uic.loadUi("tela_transferir.ui")
     tela_perfil = uic.loadUi("tela_perfil.ui")
     tela_pix = uic.loadUi("pix.ui")
     tela_novasenha = uic.loadUi("tela_novasenha.ui")
@@ -306,6 +407,7 @@ if __name__=="__main__":
     tela_login.loginButton.clicked.connect(login)
     tela_perfil.apagarconta_botao.clicked.connect(login) #excluir a conta
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
+    tela_main.transferirButton.clicked.connect(call_tela_transferir)
     tela_main.pixButton.clicked.connect(call_tela_pix)
     tela_perfil.deletarpix_botao.clicked.connect(apagar_pix)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
@@ -314,8 +416,11 @@ if __name__=="__main__":
     tela_perfil.voltarButton.clicked.connect(fechar_perfil)
     tela_deletar.apagarconta_botao2.clicked.connect(deletar_conta)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
+    tela_perfil.extrato_botao.clicked.connect(saida_json)
     tela_perfil.alterarsenha_botao.clicked.connect(call_telanovasenha)
     tela_novasenha.alterarsenha1_botao.clicked.connect(alterar_senha)
+    tela_transferir.transferir_botao.clicked.connect(transferir)
+    transferencia_ok.voltarButton.clicked.connect(transferencia_ok_close)
     Form = QtWidgets.QWidget()
     ui = Ui_Dialog()
     ui.setupUi(Form)
