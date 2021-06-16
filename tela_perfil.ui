@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>640</height>
+    <width>533</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>120</y>
+      <x>0</x>
+      <y>0</y>
       <width>531</width>
       <height>411</height>
      </rect>
@@ -65,7 +65,7 @@ border-radius:20px;</string>
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>340</y>
+       <y>270</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -213,51 +213,11 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="deletarpix_botao">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>130</y>
-       <width>181</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#deletarpix_botao{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#deletarpix_botao:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#deletarpix_botao{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Apagar Chaves PIX</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="extrato_botao">
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>200</y>
+       <y>130</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -297,7 +257,7 @@ background-color:rgba(2, 65, 118, 255);
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>270</y>
+       <y>200</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -340,7 +300,7 @@ background-color:rgba(2, 65, 118, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>533</width>
      <height>21</height>
     </rect>
    </property>
