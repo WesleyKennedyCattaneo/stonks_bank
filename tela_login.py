@@ -154,10 +154,6 @@ def call_contratar_credito():
     tela_contratar_credito.show()
 
 def call_tela_emprestimo():
-    tela_emprestimo.show()
-
-
-def emprestimo():
     usuario = catch_idUsuario()
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
@@ -165,8 +161,7 @@ def emprestimo():
     id_credito_usuario = str(cursor.fetchone()[0])
     cursor.execute("SELECT limite_atual FROM credito_usuario WHERE id_credito_usuario=?", (id_credito_usuario,))
     limite_atual = str(cursor.fetchone()[0])
-    #tela_emprestimo.labelMostraSaldo.setText("R$ " + limite_atual)
-    tela_emprestimo.labelMostraSaldo.setText("R$ ")
+    tela_emprestimo.labelMostraSaldo.setText("R$ " + limite_atual)
     tela_emprestimo.show()
 
 def call_tela_main():
@@ -280,10 +275,28 @@ def login():
     if row:
         tela_login.msg_label.setText("Dados de login corretos!")
         catch_id()
+        usuario = catch_idUsuario()
+        banco = sqlite3.connect('banco_stonks.db')
+        cursor = banco.cursor()
+        cursor.execute("SELECT id_carteira FROM cadastro WHERE id_usuario=?", (usuario,))
+        id_carteira = str(cursor.fetchone()[0])
+        cursor.execute("SELECT saldo FROM carteira WHERE id_carteira=?", (id_carteira,))
+        saldo = str(cursor.fetchone()[0])
+        tela_main.labelMostraSaldo.setText("R$ " + saldo)
         tela_main.show()
         tela_login.close()
     else:
         tela_login.msg_label.setText("Dados de login incorretos!")
+
+def atualiza_saldo():
+    usuario = catch_idUsuario()
+    banco = sqlite3.connect('banco_stonks.db')
+    cursor = banco.cursor()
+    cursor.execute("SELECT id_carteira FROM cadastro WHERE id_usuario=?", (usuario,))
+    id_carteira = str(cursor.fetchone()[0])
+    cursor.execute("SELECT saldo FROM carteira WHERE id_carteira=?", (id_carteira,))
+    saldo = str(cursor.fetchone()[0])
+    tela_main.labelMostraSaldo.setText("R$ " + saldo)
 
 def logout():
 
@@ -298,7 +311,6 @@ def gerar_pix1():
     cursor = banco.cursor()
     chavepix = gerar_chavepix()
     tela_gerarpix.chavepix_label.setText(chavepix)
-    update_pix()
 
 def gerar_pix():
     banco = sqlite3.connect('banco_stonks.db')
@@ -497,6 +509,7 @@ if __name__=="__main__":
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.transferirButton.clicked.connect(call_tela_transferir)
     tela_main.pixButton.clicked.connect(call_tela_pix)
+    tela_main.atualizar_saldo.clicked.connect(atualiza_saldo)
     tela_perfil.deletarpix_botao.clicked.connect(apagar_pix)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
     tela_gerarpix.voltarButton.clicked.connect(fechar_pix)
