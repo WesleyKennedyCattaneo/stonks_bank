@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>tela_main</class>
- <widget class="QMainWindow" name="tela_main">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
-    <height>459</height>
+    <width>532</width>
+    <height>453</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,45 +27,6 @@
      <string notr="true">background-color: rgb(29, 92, 132);
 border-radius:20px;</string>
     </property>
-    <widget class="QPushButton" name="pixButton">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>120</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton#pixButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#pixButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#pixButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>PIX</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
@@ -100,35 +61,11 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QPushButton" name="voltarButton">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>20</y>
-       <width>41</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: 0</string>
-     </property>
-     <property name="text">
-      <string>Olá, </string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="transferirButton">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>190</y>
+       <x>190</x>
+       <y>310</y>
        <width>141</width>
        <height>51</height>
       </rect>
@@ -143,113 +80,33 @@ background-color:rgba(2, 65, 118, 255);
      </property>
      <property name="styleSheet">
       <string notr="true">
-QPushButton#transferirButton{
+QPushButton#voltarButton{
 background-color:rgba(2, 65, 118, 255);
 color:rgba(255, 255, 255, 200);
 border-radius:5px;
 }
 
-QPushButton#transferirButton:pressed{
+QPushButton#voltarButton:pressed{
 padding-left:5px;
 padding-top:5px;
 background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
 }
 
-QPushButton#transferirButton{
+QPushButton#voltarButton{
 background-color:rgba(2, 65, 118, 255);
 }
 </string>
      </property>
      <property name="text">
-      <string>Transferir</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="perfilButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>190</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#perfilButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#perfilButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#perfilButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Meu Perfil</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="sairButton">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>320</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#sairButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#sairButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#sairButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Sair</string>
+      <string>Voltar</string>
      </property>
     </widget>
     <widget class="QLabel" name="labelSaldo">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>50</y>
-       <width>111</width>
+       <x>130</x>
+       <y>20</y>
+       <width>261</width>
        <height>21</height>
       </rect>
      </property>
@@ -265,7 +122,7 @@ background-color:rgba(2, 65, 118, 255);
       <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string>Saldo Atual:</string>
+      <string>PROJETO - BANCO STONKS</string>
      </property>
     </widget>
     <widget class="QLabel" name="name_label">
@@ -292,55 +149,12 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="emprestimoButton">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>120</y>
-       <width>141</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial Black</family>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">
-QPushButton#emprestimoButton{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#emprestimoButton:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#emprestimoButton{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>Empréstimo</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="labelMostraSaldo">
      <property name="geometry">
       <rect>
-       <x>210</x>
+       <x>270</x>
        <y>50</y>
-       <width>191</width>
+       <width>181</width>
        <height>21</height>
       </rect>
      </property>
@@ -359,84 +173,124 @@ background-color:rgba(2, 65, 118, 255);
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="atualizar_saldo">
+    <widget class="QLabel" name="labelSaldo_2">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>260</y>
-       <width>161</width>
-       <height>51</height>
+       <x>100</x>
+       <y>60</y>
+       <width>401</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial Black</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-QPushButton#atualizar_saldo{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#atualizar_saldo:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#atualizar_saldo{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
+      <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string>Atualizar Saldo</string>
+      <string>Nome: Wesley Kennedy Cattaneo  RA: 2840481823036</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sobre_botao">
+    <widget class="QLabel" name="labelSaldo_3">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>270</y>
-       <width>91</width>
-       <height>51</height>
+       <x>100</x>
+       <y>90</y>
+       <width>401</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial Black</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-QPushButton#sobre_botao{
-background-color:rgba(2, 65, 118, 255);
-color:rgba(255, 255, 255, 200);
-border-radius:5px;
-}
-
-QPushButton#sobre_botao:pressed{
-padding-left:5px;
-padding-top:5px;
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(66, 199, 255, 100), stop:1 rgba(255, 255, 255, 100));
-}
-
-QPushButton#sobre_botao{
-background-color:rgba(2, 65, 118, 255);
-}
-</string>
+      <string notr="true">background-color: 0</string>
      </property>
      <property name="text">
-      <string>Sobre</string>
+      <string>Nome: Leonardo Pipoli  RA: ?</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSaldo_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>531</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string>Objetivo do banco: Realizar transações (Real) Entre contas cadastradas</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSaldo_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>531</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string>Interface: Qt Designer</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSaldo_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>531</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial Black</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: 0</string>
+     </property>
+     <property name="text">
+      <string>Banco: SQLite</string>
      </property>
     </widget>
    </widget>
@@ -446,7 +300,7 @@ background-color:rgba(2, 65, 118, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>531</width>
+     <width>532</width>
      <height>21</height>
     </rect>
    </property>

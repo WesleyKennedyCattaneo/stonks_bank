@@ -485,6 +485,12 @@ def call_ok_transferencia():
 def transferencia_ok_close():
     transferencia_ok.close()
 
+def call_sobre():
+    sobre.show()
+
+def close_sobre():
+    sobre.close()
+
 if __name__=="__main__":
     app=QtWidgets.QApplication(sys.argv)
     tela_login = uic.loadUi("tela_login.ui")
@@ -494,6 +500,7 @@ if __name__=="__main__":
     tela_gerarpix = uic.loadUi("gerarpix.ui")
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
     tela_main = uic.loadUi("tela_main.ui")
+    sobre = uic.loadUi("sobre.ui")
     tela_transferir = uic.loadUi("tela_transferir.ui")
     tela_perfil = uic.loadUi("tela_perfil.ui")
     tela_pix = uic.loadUi("pix.ui")
@@ -515,6 +522,8 @@ if __name__=="__main__":
     tela_main.emprestimoButton.clicked.connect(call_tela_emprestimo)
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.transferirButton.clicked.connect(call_tela_transferir)
+    tela_main.sobre_botao.clicked.connect(call_sobre)
+    sobre.voltarButton.clicked.connect(close_sobre)
     tela_main.pixButton.clicked.connect(call_tela_pix)
     tela_main.sairButton.clicked.connect(logof)
     tela_main.atualizar_saldo.clicked.connect(atualiza_saldo)
