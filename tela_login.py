@@ -8,7 +8,7 @@ import string
 global id_carteira
 global nome_usuario
 import json
-import psycopg2
+import shutil
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -415,13 +415,18 @@ def deletar_conta():
     tela_deletar.close()
     tela_perfil.close()
 
+def logof():
+    tela_login.show()
+    tela_main.close()
+    tela_deletar.close()
+    tela_perfil.close()
+
 def saida_json( json_str = False ):
     banco = sqlite3.connect('banco_stonks.db')
     cursor = banco.cursor()
-    id_usuario = catch_id()
+    usuarioid = catch_id()
     senha = catch_senha()
     nome = catch_nome()
-    print(id_usuario,senha)
     cursor.execute("SELECT * FROM carteira")
     rows = cursor.fetchall()
     cursor.execute("SELECT * FROM cadastro")
@@ -443,9 +448,10 @@ def saida_json( json_str = False ):
         "saldo3": rows[3]
     }
 ]
-    data = json.dumps(user)
+    data3 = json.dumps(user)
     file = open('user.json', 'a')
-    file.write(data)
+    file.write(data3)
+    shutil.make_archive('userjson', 'zip', './', 'user.json')
     file.close()
 
 def call_tela_transferir():
@@ -496,6 +502,7 @@ if __name__=="__main__":
     tela_contratar_credito = uic.loadUi("tela_contratar_credito.ui")
     tela_transferir.voltarButton.clicked.connect(fechar_transferir)
     tela_transferir.transferir_botao.clicked.connect(transferir)
+    transferencia_ok.voltarButton.clicked.connect(transferencia_ok_close)
     tela_contratar_credito.okButton.clicked.connect(contratar_credito)
     tela_contratar_credito.cancelarButton.clicked.connect(fechar_tela_contratar_credito)
     tela_mais_credito.okButton.clicked.connect(aumentar_limite)
@@ -509,6 +516,7 @@ if __name__=="__main__":
     tela_main.perfilButton.clicked.connect(call_tela_perfil)
     tela_main.transferirButton.clicked.connect(call_tela_transferir)
     tela_main.pixButton.clicked.connect(call_tela_pix)
+    tela_main.sairButton.clicked.connect(logof)
     tela_main.atualizar_saldo.clicked.connect(atualiza_saldo)
     tela_gerarpix.gerarpixButton.clicked.connect(gerar_pix)
     tela_gerarpix.voltarButton.clicked.connect(fechar_pix)
